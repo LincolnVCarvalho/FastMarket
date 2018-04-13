@@ -3,16 +3,11 @@ package fastmarket.com.br.fastmarket;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.util.ArrayList;
-
-import fastmarket.com.br.fastmarket.db.Create;
-import fastmarket.com.br.fastmarket.model.Usuario;
-
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
     }
 }

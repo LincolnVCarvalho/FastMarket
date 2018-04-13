@@ -8,10 +8,10 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
-    private Date nascimento;
+    private String nascimento;
     private int cpf;
 
-    public Usuario(int id, String nome, String email, String senha, Date nascimento, int cpf) {
+    public Usuario(int id, String nome, String email, String senha, String nascimento, int cpf) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -52,11 +52,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Date getNascimento() {
+    public String getNascimento() {
         return nascimento;
     }
 
-    public void setNascimento(Date nascimento) {
+    public void setNascimento(String nascimento) {
         this.nascimento = nascimento;
     }
 
