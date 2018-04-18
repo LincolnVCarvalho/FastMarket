@@ -18,7 +18,7 @@ public class UsuarioDAO {
         SQLiteDatabase db = MainDB.getInstacia().getReadableDatabase();
         String query = "SELECT * FROM " + MainDB.TABBELA_USUARIO;
         ArrayList<Usuario> user = new ArrayList<>();
-                Cursor c = db.rawQuery(query, null);
+        Cursor c = db.rawQuery(query, null);
 
         if(c.moveToFirst()) {
             do{
@@ -84,4 +84,12 @@ public class UsuarioDAO {
         return db.delete(MainDB.TABBELA_USUARIO, query, null) > 0;
     }
 
+    public boolean loginUsuario(Usuario usuario){
+        SQLiteDatabase db = MainDB.getInstacia().getReadableDatabase();
+        String query = "SELECT * FROM " + MainDB.TABBELA_USUARIO + "WHERE EMAIL LIKE " + usuario.getEmail() + "AND SENHA LIKE " + usuario.getSenha();
+        Cursor c = db.rawQuery(query, null);
+        if(!c.isNull(0))
+            return true;
+        return false;
+    }
 }

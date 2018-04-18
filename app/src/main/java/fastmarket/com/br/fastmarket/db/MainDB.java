@@ -15,7 +15,7 @@ public class MainDB extends SQLiteOpenHelper{
     private static MainDB instacia;
 
     public static MainDB getInstacia(){
-        if(instacia == null) new MainDB();
+        if(instacia == null) instacia = new MainDB();
         return instacia;
     }
 
