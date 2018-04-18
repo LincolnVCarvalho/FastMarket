@@ -43,7 +43,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void mostrarLogin() {
-        Intent intent = new Intent(SplashScreenActivity.this, CadastroActivity.class);
+        Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
