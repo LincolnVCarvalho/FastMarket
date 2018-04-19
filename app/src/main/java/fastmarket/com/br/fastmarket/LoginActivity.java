@@ -54,13 +54,22 @@ public class LoginActivity extends AppCompatActivity {
                     u.setEmail(txtEmail.getText().toString());
 
                     if (new UsuarioDAO().loginUsuario(u)) {
-                        Toast.makeText(LoginActivity.this, "Bem Vindo" + u.getEmail(), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }else
+                        if(u.getEmail().equals("adm@fm.com")){
+                            Toast.makeText(LoginActivity.this, "Bem Vindo " + u.getEmail(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+
+                            Toast.makeText(LoginActivity.this, "Bem Vindo " + u.getEmail(), Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }else {
                         Toast.makeText(LoginActivity.this, "Dados incorretos", Toast.LENGTH_SHORT).show();
                         loginIcorreto();
+                    }
                 } else {
                     Toast.makeText(LoginActivity.this, "Corrigir os campos", Toast.LENGTH_SHORT).show();
                 }

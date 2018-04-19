@@ -86,9 +86,9 @@ public class UsuarioDAO {
 
     public boolean loginUsuario(Usuario usuario){
         SQLiteDatabase db = MainDB.getInstacia().getReadableDatabase();
-        String query = "SELECT * FROM " + MainDB.TABBELA_USUARIO + " WHERE EMAIL LIKE " +"'" + usuario.getEmail() +"'" + " AND SENHA LIKE " + "'" +usuario.getSenha() + "'";
+        String query = "SELECT * FROM " + MainDB.TABBELA_USUARIO + " WHERE EMAIL LIKE " +"'" + usuario.getEmail() +"'" + " AND SENHA LIKE " + "'" + usuario.getSenha() + "'";
         Cursor c = db.rawQuery(query, null);
-        if(!c.isNull(0))
+        if(c.getCount() > 0)
             return true;
         return false;
     }
