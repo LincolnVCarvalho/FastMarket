@@ -1,10 +1,12 @@
-package fastmarket.com.br.fastmarket;
+package fastmarket.com.br.fastmarket.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import fastmarket.com.br.fastmarket.R;
 import fastmarket.com.br.fastmarket.db.Create;
 
 public class SplashScreenActivity extends AppCompatActivity {

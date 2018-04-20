@@ -1,10 +1,9 @@
 package fastmarket.com.br.fastmarket.db;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import fastmarket.com.br.fastmarket.myApp;
+import fastmarket.com.br.fastmarket.activity.myApp;
 
 public class MainDB extends SQLiteOpenHelper{
 

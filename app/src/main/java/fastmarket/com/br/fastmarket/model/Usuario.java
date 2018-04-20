@@ -20,12 +20,15 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    public Usuario(int id) {
-        this.id = id;
+    public Usuario() {
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {

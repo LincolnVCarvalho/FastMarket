@@ -1,4 +1,4 @@
-package fastmarket.com.br.fastmarket;
+package fastmarket.com.br.fastmarket.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import fastmarket.com.br.fastmarket.R;
 import fastmarket.com.br.fastmarket.dao.UsuarioDAO;
 import fastmarket.com.br.fastmarket.model.Usuario;
 
@@ -44,12 +45,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        lnkEsqueci.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, EsqueciActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validaCampos();
                 if (validacao.isEmpty()) {
-                    Usuario u = new Usuario(1);
+                    Usuario u = new Usuario();
                     u.setSenha(txtSenha.getText().toString());
                     u.setEmail(txtEmail.getText().toString());
 
@@ -80,8 +90,8 @@ public class LoginActivity extends AppCompatActivity {
     public  void loginIcorreto(){
         txtEmail.setText("");
         txtSenha.setText("");
-        txtEmail.setError("");
-        txtSenha.setError("");
+        txtEmail.setError("Usuario ou Senha incorreta");
+        txtSenha.setError("Usuario ou Senha incorreta");
     }
 
     public void validaCampos(){

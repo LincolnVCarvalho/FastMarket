@@ -14,7 +14,28 @@ import fastmarket.com.br.fastmarket.db.MainDB;
 
 public class UsuarioDAO {
 
-    public ArrayList<Usuario> getUsuario(){
+
+    public Usuario getUsuario(String email){
+        SQLiteDatabase db = MainDB.getInstacia().getReadableDatabase();
+        String query = "SELECT * FROM " + MainDB.TABBELA_USUARIO + " WHERE EMAIL LIKE '" + email + "'";
+        Cursor c = db.rawQuery(query, null);
+        Usuario usuario = new Usuario();
+
+        if(c.moveToFirst()) {
+            do{
+                usuario.setId(c.getInt(0));
+                usuario.setNome(c.getString(1));
+                usuario.setSenha(c.getString(2));
+                usuario.setEmail(c.getString(3));
+                usuario.setNascimento(c.getString(4));
+                usuario.setCpf(c.getInt(5));
+            }while (c.moveToNext());
+        }
+        c.close();
+        return usuario;
+    }
+
+    public ArrayList<Usuario> getUsuarios(){
         SQLiteDatabase db = MainDB.getInstacia().getReadableDatabase();
         String query = "SELECT * FROM " + MainDB.TABBELA_USUARIO;
         ArrayList<Usuario> user = new ArrayList<>();
@@ -22,11 +43,12 @@ public class UsuarioDAO {
 
         if(c.moveToFirst()) {
             do{
-                Usuario usuario = new Usuario(c.getInt(0));
+                Usuario usuario = new Usuario();
+                usuario.setId(c.getInt(0));
                 usuario.setNome(c.getString(1));
-                usuario.setEmail(c.getString(2));
-                usuario.setSenha(c.getString(3));
-                //usuario.setNascimento((Date) c.getString(4));
+                usuario.setSenha(c.getString(2));
+                usuario.setEmail(c.getString(3));
+                usuario.setNascimento(c.getString(4));
                 usuario.setCpf(c.getInt(5));
                 user.add(usuario);
             }while (c.moveToNext());
@@ -40,7 +62,6 @@ public class UsuarioDAO {
         SQLiteDatabase db = MainDB.getInstacia().getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("ID", usuario.getId());
         cv.put("NOME", usuario.getNome());
         cv.put("SENHA", usuario.getSenha());
         cv.put("EMAIL", usuario.getEmail());
@@ -55,7 +76,6 @@ public class UsuarioDAO {
         SQLiteDatabase db = MainDB.getInstacia().getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("ID", usuario.getId());
         cv.put("NOME", usuario.getNome());
         cv.put("SENHA", usuario.getSenha());
         cv.put("EMAIL", usuario.getEmail());
@@ -72,7 +92,7 @@ public class UsuarioDAO {
 
         String query = "DROP TABLE IF EXISTS " + MainDB.TABBELA_USUARIO;
 
-        db.execSQL(query,null);
+        db.execSQL(query);
     }
 
     public boolean removerUsuario(Usuario usuario){

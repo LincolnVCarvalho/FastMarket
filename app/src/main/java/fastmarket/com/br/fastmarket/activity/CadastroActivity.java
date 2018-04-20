@@ -1,4 +1,4 @@
-package fastmarket.com.br.fastmarket;
+package fastmarket.com.br.fastmarket.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import fastmarket.com.br.fastmarket.R;
 import fastmarket.com.br.fastmarket.dao.UsuarioDAO;
 import fastmarket.com.br.fastmarket.model.Usuario;
 
@@ -44,7 +45,7 @@ public class CadastroActivity extends AppCompatActivity {
             public void onClick(View v) {
                 validaCampos();
                 if (validacao.isEmpty()) {
-                    Usuario u = new Usuario(1);
+                    Usuario u = new Usuario();
                     u.setNome(txtNome.getText().toString());
                     u.setSenha(txtSenha.getText().toString());
                     u.setEmail(txtEmail.getText().toString());

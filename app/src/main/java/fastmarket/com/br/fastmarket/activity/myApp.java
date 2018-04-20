@@ -1,4 +1,4 @@
-package fastmarket.com.br.fastmarket;
+package fastmarket.com.br.fastmarket.activity;
 
 import android.app.Application;
 import android.content.Context;
