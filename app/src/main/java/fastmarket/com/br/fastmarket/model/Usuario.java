@@ -20,8 +20,10 @@ public class Usuario {
         this.cpf = cpf;
     }
 
+
     public Usuario() {
     }
+
 
     public int getId() {
         return id;

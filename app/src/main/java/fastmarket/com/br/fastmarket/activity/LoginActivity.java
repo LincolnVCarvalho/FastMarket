@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         lnkEsqueci.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, EsqueciActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RecuperaTokenActivity.class);
                 startActivity(intent);
                 finish();
             }

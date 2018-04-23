@@ -28,44 +28,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="38dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Email"
-        app:layout_constraintBottom_toTopOf="@+id/txtEmail"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="90dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Senha"
-        app:layout_constraintBottom_toTopOf="@+id/txtSenha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <EditText
         android:id="@+id/txtSenha"
@@ -73,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Senha"
         android:inputType="textPassword"
@@ -103,7 +79,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="60dp"
         android:text="Entrar"
         app:layout_constraintBottom_toTopOf="@+id/btnCadCadastro"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,13 +91,13 @@
         android:id="@+id/btnCadCadastro"
         android:layout_width="0dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Cadastrar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEntrar" />
 </android.support.constraint.ConstraintLayout>
 </ScrollView>
