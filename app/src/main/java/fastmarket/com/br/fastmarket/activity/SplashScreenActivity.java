@@ -3,50 +3,65 @@ package fastmarket.com.br.fastmarket.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.io.Serializable;
+import java.util.HashMap;
+
 import fastmarket.com.br.fastmarket.R;
+import fastmarket.com.br.fastmarket.dao.UsuarioDAO;
 import fastmarket.com.br.fastmarket.db.Create;
+import fastmarket.com.br.fastmarket.helper.Preferencias;
+import fastmarket.com.br.fastmarket.model.Usuario;
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity implements Serializable{
 
-    public static final String LOGIN_PREFERENCE = "INFORMACOES_LOGIN_AUTOMATICO";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
-
-        new Create().createTableUsuario();
-
+    protected void onCreate(Bundle savedInstanceState) {
+        createTables();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        Handler handle = new Handler();
-        handle.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences prefs = getSharedPreferences(LOGIN_PREFERENCE, MODE_PRIVATE);
-                String login = prefs.getString("login", null);
 
-                if (login!= null) {
-                    // existe configuração salvar
-                } else {
+        try {
+          Preferencias preferencias = new Preferencias(SplashScreenActivity.this);
+          HashMap<String, String> user = preferencias.getDadosUsuario();
+
+           if(user.get("loginEmail") != null) {
+               Usuario u = new UsuarioDAO().getUsuario(user.get("loginEmail"));
+               jaLogado(u);
+           }
+
+
+            Handler handle = new Handler();
+            handle.postDelayed(new Runnable() {
+                @Override
+                public void run() {
                     mostrarLogin();
                 }
+            }, 5000);
 
-
-            }
-        }, 5000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    private void salvaLogin(){
-        SharedPreferences.Editor editor = getSharedPreferences(LOGIN_PREFERENCE, MODE_PRIVATE).edit();
-        editor.putString("login", "true");
-        editor.commit();
-    }
 
     private void mostrarLogin() {
         Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void jaLogado(Usuario usuario){
+        Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void createTables(){
+        new Create().createTableUsuario();
     }
 }

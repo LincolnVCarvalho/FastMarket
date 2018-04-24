@@ -2,6 +2,8 @@ package fastmarket.com.br.fastmarket.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import fastmarket.com.br.fastmarket.R;
+import fastmarket.com.br.fastmarket.adapter.RecycleAdapter;
 import fastmarket.com.br.fastmarket.dao.UsuarioDAO;
 import fastmarket.com.br.fastmarket.db.MainDB;
 import fastmarket.com.br.fastmarket.model.Usuario;
@@ -30,8 +33,8 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     private Button btnUPDATE;
     private Button btnLIST;
     private Button btnDELTABLE;
-    private ListView listALLUser;
     private Usuario usuario;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,8 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         btnLIST = findViewById(R.id.btnAdminLIST);
         btnSearch = findViewById(R.id.btnAdminSearch);
         btnUPDATE = findViewById(R.id.btnAdminUPDATE);
-        listALLUser = findViewById(R.id.lstViewAdminUserAll);
+        recyclerView = findViewById(R.id.rclViewUser);
+
 
         findViewById(R.id.btnAdminADD).setOnClickListener(this);
         findViewById(R.id.btnAdminDELETE).setOnClickListener(this);
@@ -81,14 +85,22 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void showUser(){
+
         ArrayList<Usuario> u = new UsuarioDAO().getUsuarios();
 
-        for (int i = 0; i < u.size(); i++){
+        recyclerView.setAdapter(new RecycleAdapter(u, this));
+
+        RecyclerView.LayoutManager layout = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
+
+        recyclerView.setLayoutManager(layout);
+
+       /* for (int i = 0; i < u.size(); i++){
             Usuario usuario = u.get(i);
             System.out.println("# " + "   ID: " + usuario.getId() + " Nome: " + usuario.getNome() + " Senha: " + usuario.getSenha()+ " Email: " + usuario.getEmail()+ " Nascimento: " + usuario.getNascimento()+ " CPF: " + usuario.getCpf());
         }
 
-        if(u.size() == 0)System.out.println("# Nao existe registro");
+        if(u.size() == 0)System.out.println("# Nao existe registro");*/
     }
 
     public void delTable(){

@@ -1,6 +1,7 @@
 package fastmarket.com.br.fastmarket.activity;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,14 +10,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import fastmarket.com.br.fastmarket.R;
 import fastmarket.com.br.fastmarket.dao.UsuarioDAO;
+import fastmarket.com.br.fastmarket.helper.Preferencias;
 import fastmarket.com.br.fastmarket.model.Usuario;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
 
     private EditText txtEmail;
     private EditText txtSenha;
@@ -41,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -50,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RecuperaTokenActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -70,7 +71,8 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }else {
-
+                            Preferencias preferencias = new Preferencias(LoginActivity.this);
+                            preferencias.saveLogin(txtEmail.getText().toString(), txtSenha.getText().toString());
                             Toast.makeText(LoginActivity.this, "Bem Vindo " + u.getEmail(), Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -92,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         txtSenha.setText("");
         txtEmail.setError("Usuario ou Senha incorreta");
         txtSenha.setError("Usuario ou Senha incorreta");
+        txtEmail.requestFocus();
     }
 
     public void validaCampos(){
@@ -100,11 +103,13 @@ public class LoginActivity extends AppCompatActivity {
         if(txtEmail.getText().toString().equals("")) {
             validacao.add("Email");
             txtEmail.setError("Digite um email");
+            txtEmail.requestFocus();
         }
 
         if(txtSenha.getText().toString().equals("")){
             validacao.add("Senha");
             txtSenha.setError("Digite uma senha!");
+            txtSenha.requestFocus();
         }
     }
 }

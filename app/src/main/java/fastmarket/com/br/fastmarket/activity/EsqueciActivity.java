@@ -3,6 +3,8 @@ package fastmarket.com.br.fastmarket.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +42,19 @@ public class EsqueciActivity extends AppCompatActivity {
         txtConfirmaSenha = findViewById(R.id.txtNovaSenhaConfirma);
         swtMostra = findViewById(R.id.swtMostraSenha);
 
+
+        swtMostra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!swtMostra.isChecked()) {
+                    txtSenha.setTransformationMethod(new PasswordTransformationMethod());
+                    txtConfirmaSenha.setTransformationMethod(new PasswordTransformationMethod());
+                }else {
+                    txtSenha.setTransformationMethod(null);
+                    txtConfirmaSenha.setTransformationMethod(null);
+                }
+            }
+        });
         SimpleMaskFormatter simpleMaskFormatter = new SimpleMaskFormatter("NNNN");
         MaskTextWatcher maskTextWatcher = new MaskTextWatcher(txtToken, simpleMaskFormatter);
 
@@ -59,6 +74,7 @@ public class EsqueciActivity extends AppCompatActivity {
                         u.setSenha(txtConfirmaSenha.getText().toString());
                         if (new UsuarioDAO().updateUsuario(u)) {
                             Toast.makeText(EsqueciActivity.this, "Senha atualizada com sucesso!", Toast.LENGTH_SHORT).show();
+                            preferencias.limpaPrefes();
                             Intent intent = new Intent(EsqueciActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
@@ -77,9 +93,5 @@ public class EsqueciActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
     }
 }

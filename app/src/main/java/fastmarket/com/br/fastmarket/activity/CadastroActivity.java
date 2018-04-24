@@ -72,30 +72,37 @@ public class CadastroActivity extends AppCompatActivity {
         if(txtNome.getText().toString().equals("")) {
             validacao.add("Nome");
             txtNome.setError("Digite um nome");
+            txtNome.requestFocus();
         }
         if(txtSenha.getText().toString().equals("")){
             validacao.add("Senha");
             txtSenha.setError("Digite uma senha!");
+            txtSenha.requestFocus();
         }
         if(txtConfirmaSenha.getText().toString().equals("")){
             validacao.add("Senha");
             txtConfirmaSenha.setError("Confirme a senha!");
+            txtConfirmaSenha.requestFocus();
         }
         if(!txtSenha.getText().toString().equals(txtConfirmaSenha.getText().toString())) {
             validacao.add("Senha Diferentes");
             txtConfirmaSenha.setError("Senha nao se conhecidem!");
+            txtConfirmaSenha.requestFocus();
         }
         if(txtEmail.getText().toString().equals("")) {
             validacao.add("Email");
             txtEmail.setError("Digite um email");
+            txtEmail.requestFocus();
         }
         if(txtNascimento.getText().toString().equals("")) {
             validacao.add("Nascimento");
             txtNascimento.setError("Digite uma data");
+            txtNascimento.requestFocus();
         }
         if(txtCpf.getText().toString().equals("")) {
             validacao.add("CPF");
             txtCpf.setError("Digite um CPF!");
+            txtCpf.requestFocus();
         }
     }
 }

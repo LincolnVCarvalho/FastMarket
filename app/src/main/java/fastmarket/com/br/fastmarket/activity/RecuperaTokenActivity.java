@@ -73,10 +73,8 @@ public class RecuperaTokenActivity extends AppCompatActivity {
                     Preferencias preferencias = new Preferencias(RecuperaTokenActivity.this);
                     preferencias.savePreferences(email, celularRaw, token);
                     enviaSMS("+55" + celularRaw, mensagemSMS);
+                    alertaSMS();
 
-                    Intent intent = new Intent(RecuperaTokenActivity.this, EsqueciActivity.class);
-                    startActivity(intent);
-                    finish();
                 }else{
                     txtEmail.setText("");
                     txtEmail.setError("Usuario nao encontrado!");
@@ -117,6 +115,22 @@ public class RecuperaTokenActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void alertaSMS(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Codigo Enviado");
+        builder.setMessage("Uma mensagem de texto foi enviada para seu celular para recuperar sua senha! Abra seu aplicativo de mensagem para resgatar seu codigo!");
+
+        builder.setPositiveButton("CONFIRMAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(RecuperaTokenActivity.this, EsqueciActivity.class);
+                startActivity(intent);
             }
         });
         AlertDialog alertDialog = builder.create();
