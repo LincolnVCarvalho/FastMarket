@@ -4,17 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import fastmarket.com.br.fastmarket.R;
-import fastmarket.com.br.fastmarket.adapter.RecycleAdapter;
+import fastmarket.com.br.fastmarket.adapter.UsuarioRecycleAdapter;
 import fastmarket.com.br.fastmarket.dao.UsuarioDAO;
 import fastmarket.com.br.fastmarket.db.MainDB;
 import fastmarket.com.br.fastmarket.model.Usuario;
@@ -85,22 +83,14 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void showUser(){
-
         ArrayList<Usuario> u = new UsuarioDAO().getUsuarios();
 
-        recyclerView.setAdapter(new RecycleAdapter(u, this));
+        recyclerView.setAdapter(new UsuarioRecycleAdapter(u, this));
 
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(layout);
-
-       /* for (int i = 0; i < u.size(); i++){
-            Usuario usuario = u.get(i);
-            System.out.println("# " + "   ID: " + usuario.getId() + " Nome: " + usuario.getNome() + " Senha: " + usuario.getSenha()+ " Email: " + usuario.getEmail()+ " Nascimento: " + usuario.getNascimento()+ " CPF: " + usuario.getCpf());
-        }
-
-        if(u.size() == 0)System.out.println("# Nao existe registro");*/
     }
 
     public void delTable(){

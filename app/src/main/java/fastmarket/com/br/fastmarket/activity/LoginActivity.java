@@ -75,6 +75,8 @@ public class LoginActivity extends AppCompatActivity{
                             preferencias.saveLogin(txtEmail.getText().toString(), txtSenha.getText().toString());
                             Toast.makeText(LoginActivity.this, "Bem Vindo " + u.getEmail(), Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            u = new UsuarioDAO().getUsuario(txtEmail.getText().toString());
+                            intent.putExtra("usuarioLogado", u);
                             startActivity(intent);
                             finish();
                         }

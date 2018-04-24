@@ -13,12 +13,12 @@ import fastmarket.com.br.fastmarket.R;
 import fastmarket.com.br.fastmarket.holders.UsuarioViewHolder;
 import fastmarket.com.br.fastmarket.model.Usuario;
 
-public class RecycleAdapter extends RecyclerView.Adapter {
+public class UsuarioRecycleAdapter extends RecyclerView.Adapter {
 
     private List<Usuario> usuarios;
     private Context context;
 
-    public RecycleAdapter(List<Usuario> usuarios, Context context) {
+    public UsuarioRecycleAdapter(List<Usuario> usuarios, Context context) {
         this.usuarios = usuarios;
         this.context = context;
     }
@@ -27,7 +27,7 @@ public class RecycleAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.view_holder, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.usuario_view_holder, parent, false);
         UsuarioViewHolder holder = new UsuarioViewHolder(view);
         return holder;
     }

@@ -16,7 +16,7 @@ import fastmarket.com.br.fastmarket.db.Create;
 import fastmarket.com.br.fastmarket.helper.Preferencias;
 import fastmarket.com.br.fastmarket.model.Usuario;
 
-public class SplashScreenActivity extends AppCompatActivity implements Serializable{
+public class SplashScreenActivity extends AppCompatActivity{
 
 
     @Override
@@ -28,26 +28,22 @@ public class SplashScreenActivity extends AppCompatActivity implements Serializa
         try {
           Preferencias preferencias = new Preferencias(SplashScreenActivity.this);
           HashMap<String, String> user = preferencias.getDadosUsuario();
-
            if(user.get("loginEmail") != null) {
                Usuario u = new UsuarioDAO().getUsuario(user.get("loginEmail"));
                jaLogado(u);
+           }else {
+               Handler handle = new Handler();
+               handle.postDelayed(new Runnable() {
+                   @Override
+                   public void run() {
+                       mostrarLogin();
+                   }
+               }, 5000);
            }
-
-
-            Handler handle = new Handler();
-            handle.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mostrarLogin();
-                }
-            }, 5000);
-
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-
 
     private void mostrarLogin() {
         Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
@@ -57,6 +53,7 @@ public class SplashScreenActivity extends AppCompatActivity implements Serializa
 
     private void jaLogado(Usuario usuario){
         Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+        intent.putExtra("usuarioLogado", usuario);
         startActivity(intent);
         finish();
     }
