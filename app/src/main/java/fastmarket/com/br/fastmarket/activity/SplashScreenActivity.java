@@ -59,6 +59,6 @@ public class SplashScreenActivity extends AppCompatActivity{
     }
 
     private void createTables(){
-        new Create().createTableUsuario();
+        new Create().createTable();
     }
 }

@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 import fastmarket.com.br.fastmarket.R;
 import fastmarket.com.br.fastmarket.adapter.UsuarioRecycleAdapter;
+import fastmarket.com.br.fastmarket.dao.ListaDAO;
+import fastmarket.com.br.fastmarket.dao.ProdutoDAO;
 import fastmarket.com.br.fastmarket.dao.UsuarioDAO;
 import fastmarket.com.br.fastmarket.db.MainDB;
 import fastmarket.com.br.fastmarket.model.Usuario;
@@ -31,6 +33,9 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     private Button btnUPDATE;
     private Button btnLIST;
     private Button btnDELTABLE;
+    private Button btnProd;
+    private Button btnList;
+    private Button btnItem;
     private Usuario usuario;
     private RecyclerView recyclerView;
 
@@ -52,6 +57,9 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         btnSearch = findViewById(R.id.btnAdminSearch);
         btnUPDATE = findViewById(R.id.btnAdminUPDATE);
         recyclerView = findViewById(R.id.rclViewUser);
+        btnProd = findViewById(R.id.btnAlimentaProd);
+        btnList = findViewById(R.id.btnAlimentaLista);
+        btnItem = findViewById(R.id.btnAlimentaItem);
 
 
         findViewById(R.id.btnAdminADD).setOnClickListener(this);
@@ -60,6 +68,9 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.btnAdminLIST).setOnClickListener(this);
         findViewById(R.id.btnAdminSearch).setOnClickListener(this);
         findViewById(R.id.btnAdminUPDATE).setOnClickListener(this);
+        findViewById(R.id.btnAlimentaProd).setOnClickListener(this);
+        findViewById(R.id.btnAlimentaLista).setOnClickListener(this);
+        findViewById(R.id.btnAlimentaItem).setOnClickListener(this);
 
     }
 
@@ -79,8 +90,29 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
             delTable();
         } else if (id == R.id.btnAdminLIST) {
             showUser();
+        } else if (id == R.id.btnAlimentaProd) {
+            addProd();
+        } else if (id == R.id.btnAlimentaLista) {
+            addList();
+        } else if (id == R.id.btnAlimentaItem) {
+            addItem();
         }
+
     }
+
+
+    public void addProd(){
+        new ProdutoDAO().bruteData();
+    }
+
+    public void addList(){
+        new ListaDAO().bruteData();
+    }
+
+    public void addItem(){
+        new ListaDAO().bruteData();
+    }
+
 
     public void showUser(){
         ArrayList<Usuario> u = new UsuarioDAO().getUsuarios();
