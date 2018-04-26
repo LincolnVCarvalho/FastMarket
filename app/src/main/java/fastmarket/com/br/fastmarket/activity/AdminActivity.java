@@ -106,7 +106,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void addList(){
-        new ListaDAO().bruteData();
+        new ListaDAO().bruteDataLISTA();
     }
 
     public void addItem(){
@@ -127,6 +127,9 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
     public void delTable(){
         new UsuarioDAO().removerTabela();
+        new ProdutoDAO().removerTabelaProd();
+        new ListaDAO().removerTabelaLista();
+        new ListaDAO().removerTabelaItem();
     }
 
     private void carregarPessoa() {
