@@ -124,7 +124,8 @@
             android:text="Casdastrar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCadCPF" />
+            app:layout_constraintTop_toBottomOf="@+id/txtCadCPF"
+            android:theme="@style/botaoPadrao"/>
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

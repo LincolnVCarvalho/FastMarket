@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fastmarket.com.br.fastmarket">
 
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
     <application
         android:name=".activity.myApp"
         android:allowBackup="true"
@@ -12,10 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity" />
-        <activity
-            android:name=".activity.SplashScreenActivity"
-            android:theme="@style/AppCompat.TelaCheia">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,19 +20,29 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.SplashScreenActivity"
+            android:theme="@style/AppCompat.TelaCheia">
+
+            <!-- AKI -->
+        </activity>
+        <activity
             android:name=".activity.LoginActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/EditTheme" />
         <activity
             android:name=".activity.CadastroActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/EditTheme" />
         <activity android:name=".activity.AdminActivity" />
         <activity
             android:name=".activity.EsqueciActivity"
-            android:theme="@style/AppTheme" />
-
+            android:theme="@style/EditTheme" />
         <activity
             android:name=".activity.RecuperaTokenActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/EditTheme" />
+        <activity android:name=".activity.HistoricoActivity" />
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
