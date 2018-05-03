@@ -39,10 +39,6 @@
             android:name=".activity.RecuperaTokenActivity"
             android:theme="@style/EditTheme" />
         <activity android:name=".activity.HistoricoActivity" />
-        <activity
-            android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

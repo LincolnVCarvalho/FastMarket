@@ -2,6 +2,8 @@ package fastmarket.com.br.fastmarket.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,15 +21,21 @@ import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import fastmarket.com.br.fastmarket.R;
+import fastmarket.com.br.fastmarket.adapter.TabAdapter;
 import fastmarket.com.br.fastmarket.db.Create;
 import fastmarket.com.br.fastmarket.db.MainDB;
+import fastmarket.com.br.fastmarket.fragment.ListaFragment;
+import fastmarket.com.br.fastmarket.fragment.MapaFragment;
+import fastmarket.com.br.fastmarket.fragment.ProcuraFragment;
 import fastmarket.com.br.fastmarket.helper.Preferencias;
 import fastmarket.com.br.fastmarket.model.Usuario;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    Usuario usuario;
+    private Usuario usuario;
+    private ViewPager mViewPager;
+    private TabLayout tlsTabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +44,17 @@ public class MainActivity extends AppCompatActivity {
         usuario = (Usuario) getIntent().getSerializableExtra("usuarioLogado");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Teste");
+        toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
 
+        tlsTabs = (TabLayout) findViewById(R.id.stl_tabs);
+        mViewPager = (ViewPager) findViewById(R.id.viewP);
+
+        TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(tabAdapter);
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tlsTabs));
+        tlsTabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
 
     @Override
