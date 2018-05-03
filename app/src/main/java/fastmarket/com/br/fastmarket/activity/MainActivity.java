@@ -1,33 +1,18 @@
 package fastmarket.com.br.fastmarket.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.zip.Inflater;
-
-import fastmarket.com.br.fastmarket.AlteraDadosActivity;
 import fastmarket.com.br.fastmarket.R;
 import fastmarket.com.br.fastmarket.adapter.TabAdapter;
-import fastmarket.com.br.fastmarket.db.Create;
-import fastmarket.com.br.fastmarket.db.MainDB;
-import fastmarket.com.br.fastmarket.fragment.ListaFragment;
-import fastmarket.com.br.fastmarket.fragment.MapaFragment;
-import fastmarket.com.br.fastmarket.fragment.ProcuraFragment;
 import fastmarket.com.br.fastmarket.helper.Preferencias;
 import fastmarket.com.br.fastmarket.model.Usuario;
 
@@ -76,8 +61,10 @@ public class MainActivity extends AppCompatActivity {
                 atulizaDados();
                 return true;
             case R.id.item_historico:
-                Intent intent = new Intent(MainActivity.this, HistoricoActivity.class);
-                startActivity(intent);
+                historicoLista();
+                return true;
+            case R.id.item_help:
+                Toast.makeText(MainActivity.this, "HELPPPPP!", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -94,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void atulizaDados(){
         Intent intent = new Intent(MainActivity.this, AlteraDadosActivity.class);
+        startActivity(intent);
+    }
+
+    public void historicoLista(){
+        Intent intent = new Intent(MainActivity.this, HistoricoActivity.class);
         startActivity(intent);
     }
 }

@@ -15,4 +15,8 @@
     <item android:id="@+id/item_sair"
         android:title="@string/item_sair"
         android:orderInCategory="300" app:showAsAction="never"/>
+
+    <item android:id="@+id/item_help"
+        android:title="@string/item_Ajuda"
+        android:orderInCategory="400" app:showAsAction="ifRoom" android:icon="@drawable/ic_help"/>
 </menu>
