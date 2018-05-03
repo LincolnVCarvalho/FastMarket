@@ -20,6 +20,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.zip.Inflater;
 
+import fastmarket.com.br.fastmarket.AlteraDadosActivity;
 import fastmarket.com.br.fastmarket.R;
 import fastmarket.com.br.fastmarket.adapter.TabAdapter;
 import fastmarket.com.br.fastmarket.db.Create;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 deslogarUser();
                 return true;
             case R.id.item_alterardados:
-                atulizaDados(usuario);
+                atulizaDados();
                 return true;
             case R.id.item_historico:
                 Intent intent = new Intent(MainActivity.this, HistoricoActivity.class);
@@ -91,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    public void atulizaDados(Usuario usuario){
-
+    public void atulizaDados(){
+        Intent intent = new Intent(MainActivity.this, AlteraDadosActivity.class);
+        startActivity(intent);
     }
 }

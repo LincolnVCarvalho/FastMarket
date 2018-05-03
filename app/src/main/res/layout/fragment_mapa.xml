@@ -5,13 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".fragment.MapaFragment">
 
-    <TextView
+    <GridView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/frag_mapa"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:theme="@style/ThemeOverlay.AppCompat.Light"/>
+        android:layout_height="match_parent" />
 
 </FrameLayout>

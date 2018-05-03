@@ -2,15 +2,18 @@
     <string name="app_name">FastMarket</string>
     <string name="item_sair">Sair</string>
     <string name="item_AlterDados">Alterar Dados</string>
-    <string name="item_Historico">Historico</string>
+    <string name="item_Historico">Historico de Compras</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="tab_lista">Lista</string>
     <string name="tab_procura">Procura</string>
     <string name="tab_mapa">Mapa</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="frag_lista">Lista</string>
-    <string name="frag_procura">Procura</string>
+    <string name="frag_lista">Criar uma lista de Compra</string>
+    <string name="frag_procura">Pesquisa de produto</string>
     <string name="frag_mapa">Mapa</string>
     <string name="title_activity_teste">TesteActivity</string>
+    <string name="nome">Nome</string>
+    <string name="preco">Preço</string>
+    <string name="corredor">Corredor</string>
 </resources>

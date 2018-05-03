@@ -3,34 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:theme="@style/ThemeOverlay.AppCompat.Light"
-    tools:context=".activity.HistoricoActivity">
+    android:layout_height="match_parent"
+    tools:context="fastmarket.com.br.fastmarket.AlteraDadosActivity">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="@string/item_Historico"
+        android:text="TextView"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/expandableListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ExpandableListView
-        android:id="@+id/expandableListView"
-        android:layout_width="0dp"
-        android:layout_height="233dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="167dp" />
-
 </android.support.constraint.ConstraintLayout>

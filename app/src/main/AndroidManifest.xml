@@ -39,6 +39,7 @@
             android:name=".activity.RecuperaTokenActivity"
             android:theme="@style/EditTheme" />
         <activity android:name=".activity.HistoricoActivity" />
+        <activity android:name=".AlteraDadosActivity"></activity>
     </application>
 
 </manifest>
