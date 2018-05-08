@@ -12,11 +12,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import fastmarket.com.br.fastmarket.R;
+import fastmarket.com.br.fastmarket.adapter.ProdutoRecycleAdapter;
 import fastmarket.com.br.fastmarket.adapter.UsuarioRecycleAdapter;
 import fastmarket.com.br.fastmarket.dao.ListaDAO;
 import fastmarket.com.br.fastmarket.dao.ProdutoDAO;
 import fastmarket.com.br.fastmarket.dao.UsuarioDAO;
 import fastmarket.com.br.fastmarket.db.MainDB;
+import fastmarket.com.br.fastmarket.model.Produto;
 import fastmarket.com.br.fastmarket.model.Usuario;
 
 public class AdminActivity extends AppCompatActivity implements View.OnClickListener{
@@ -38,6 +40,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     private Button btnItem;
     private Usuario usuario;
     private RecyclerView recyclerView;
+    private RecyclerView rclViewProd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +59,11 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         btnLIST = findViewById(R.id.btnAdminLIST);
         btnSearch = findViewById(R.id.btnAdminSearch);
         btnUPDATE = findViewById(R.id.btnAdminUPDATE);
-        recyclerView = findViewById(R.id.rclViewUser);
+        recyclerView = (RecyclerView) findViewById(R.id.rclViewUser);
         btnProd = findViewById(R.id.btnAlimentaProd);
         btnList = findViewById(R.id.btnAlimentaLista);
         btnItem = findViewById(R.id.btnAlimentaItem);
+        rclViewProd = (RecyclerView) findViewById(R.id.rclViewProd);
 
 
         findViewById(R.id.btnAdminADD).setOnClickListener(this);
@@ -90,6 +94,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
             delTable();
         } else if (id == R.id.btnAdminLIST) {
             showUser();
+            showProd();
         } else if (id == R.id.btnAlimentaProd) {
             addProd();
         } else if (id == R.id.btnAlimentaLista) {
@@ -102,7 +107,10 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
 
     public void addProd(){
-        new ProdutoDAO().bruteData();
+        if (new ProdutoDAO().bruteData())
+            Toast.makeText(this, "CERTO", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this, "TROLO", Toast.LENGTH_SHORT).show();
     }
 
     public void addList(){
@@ -123,6 +131,17 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(layout);
+    }
+
+    public void showProd(){
+        ArrayList<Produto> p = new ProdutoDAO().getAllProdutos();
+
+        rclViewProd.setAdapter(new ProdutoRecycleAdapter(p, this));
+
+        RecyclerView.LayoutManager layout = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
+
+        rclViewProd.setLayoutManager(layout);
     }
 
     public void delTable(){

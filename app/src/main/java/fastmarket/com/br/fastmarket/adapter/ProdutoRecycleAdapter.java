@@ -10,36 +10,36 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import fastmarket.com.br.fastmarket.R;
-import fastmarket.com.br.fastmarket.holders.UsuarioViewHolder;
-import fastmarket.com.br.fastmarket.model.Usuario;
+import fastmarket.com.br.fastmarket.holders.ProdutoViewHolder;
+import fastmarket.com.br.fastmarket.model.Produto;
 
-public class UsuarioRecycleAdapter extends RecyclerView.Adapter {
+public class ProdutoRecycleAdapter extends RecyclerView.Adapter {
 
-    private List<Usuario> usuarios;
+    private List<Produto> produtos;
     private Context context;
 
-    public UsuarioRecycleAdapter(List<Usuario> usuarios, Context context) {
-        this.usuarios = usuarios;
+    public ProdutoRecycleAdapter(List<Produto> produtos, Context context) {
+        this.produtos = produtos;
         this.context = context;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.usuario_view_holder, parent, false);
-        UsuarioViewHolder holder = new UsuarioViewHolder(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.produto_view_holder, parent, false);
+        ProdutoViewHolder holder = new ProdutoViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        UsuarioViewHolder viewHolder = (UsuarioViewHolder) holder;
-        Usuario usuario = usuarios.get(position);
-        viewHolder.nome.setText(usuario.getNome());
+        ProdutoViewHolder viewHolder = (ProdutoViewHolder) holder;
+        Produto produto = produtos.get(position);
+        viewHolder.nome.setText(produto.getNome());
     }
 
     @Override
     public int getItemCount() {
-        return usuarios.size();
+        return produtos.size();
     }
 }
