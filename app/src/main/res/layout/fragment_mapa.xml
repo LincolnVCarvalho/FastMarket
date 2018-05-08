@@ -5,8 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".fragment.MapaFragment">
 
-    <GridView
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/GridLaout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
+    </android.support.v7.widget.GridLayout>
 </FrameLayout>
