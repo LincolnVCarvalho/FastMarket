@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorDivider</item>
+        <item name="android:windowBackground">@color/colorIcons</item>
     </style>
 
     <style name="EditTheme" parent="Theme.AppCompat.NoActionBar">
@@ -21,9 +23,20 @@
         <item name="colorButtonNormal">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/colorAccentLight</item>
         <item name="android:textColor">@color/colorIcons</item>
+        <item name="android:state_enabled">@color/colorAccentLight</item>
+    </style>
+
+    <style name="titleWhite" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:textColor">@color/colorIcons</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="titleBlack" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
     <style name="AppCompat.TelaCheia" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 </resources>

@@ -1,16 +1,10 @@
 package fastmarket.com.br.fastmarket.fragment;
 
 import android.os.Bundle;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.GridLayout;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
-import android.widget.ScrollView;
 
 import fastmarket.com.br.fastmarket.R;
 

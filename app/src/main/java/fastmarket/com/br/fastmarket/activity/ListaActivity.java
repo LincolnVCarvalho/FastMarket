@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import fastmarket.com.br.fastmarket.R;
 import fastmarket.com.br.fastmarket.adapter.ListaADDRecycleAdapter;
+import fastmarket.com.br.fastmarket.adapter.ListaRemoveRecycleAdapter;
 import fastmarket.com.br.fastmarket.adapter.UsuarioRecycleAdapter;
 import fastmarket.com.br.fastmarket.dao.ProdutoDAO;
 import fastmarket.com.br.fastmarket.dao.UsuarioDAO;
