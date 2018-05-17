@@ -16,7 +16,6 @@ import fastmarket.com.br.fastmarket.R;
 
 public class MapaFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private android.support.v7.widget.GridLayout grid;
 
     public MapaFragment() {
     }

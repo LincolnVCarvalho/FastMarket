@@ -12,9 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
-
-        </activity>
+        <activity android:name=".activity.MainActivity"></activity>
         <activity
             android:name=".activity.SplashScreenActivity"
             android:theme="@style/AppCompat.TelaCheia">
@@ -24,16 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/EditTheme" />
         <activity
             android:name=".activity.CadastroActivity"
             android:theme="@style/EditTheme" />
-
         <activity android:name=".activity.AdminActivity" />
-
         <activity
             android:name=".activity.EsqueciActivity"
             android:theme="@style/EditTheme" />
@@ -42,7 +37,8 @@
             android:theme="@style/EditTheme" />
         <activity android:name=".activity.HistoricoActivity" />
         <activity android:name=".activity.AlteraDadosActivity" />
-        <activity android:name=".Testes"></activity>
+        <activity android:name=".Testes" />
+        <activity android:name=".activity.ListaActivity"></activity>
     </application>
 
 </manifest>

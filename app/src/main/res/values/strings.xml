@@ -9,7 +9,7 @@
     <string name="tab_mapa">Mapa</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="frag_lista">Criar uma lista de Compra</string>
+    <string name="frag_lista">Sua lista de Compra</string>
     <string name="frag_procura">Pesquisa de produto</string>
     <string name="frag_mapa">Mapa</string>
     <string name="title_activity_teste">TesteActivity</string>
@@ -17,4 +17,7 @@
     <string name="preco">Preço</string>
     <string name="corredor">Corredor</string>
     <string name="item_Ajuda">Ajuda</string>
+    <string name="listaVazia">Lista vaiza =(</string>
+    <string name="listaDeCompra">Lista de Compra</string>
+    <string name="finalizaLista">Finalizar Lista</string>
 </resources>
