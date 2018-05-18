@@ -1,14 +1,19 @@
 package fastmarket.com.br.fastmarket.adapter;
 
+import android.content.ClipData;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fastmarket.com.br.fastmarket.R;
@@ -23,6 +28,7 @@ import fastmarket.com.br.fastmarket.model.Produto;
 public class ListaRemoveRecycleAdapter extends RecyclerView.Adapter<ListaRemoveViewHolder> {
 
     private List<Produto> produtos;
+    private ArrayList<Produto> listaProduto;
     private Context context;
     private Produto produto;
 
@@ -41,22 +47,17 @@ public class ListaRemoveRecycleAdapter extends RecyclerView.Adapter<ListaRemoveV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListaRemoveViewHolder holder, int position) {
-        produto = produtos.get(position);
-        holder.nomeProdremove.setText(produto.getNome());
+    public void onBindViewHolder(@NonNull final ListaRemoveViewHolder holder, int position) {
+
+        holder.nomeProdremove.setText(produtos.get(position).getNome());
         holder.setItemClickListener(new ItemClickListener() {
             @Override
-            public void onItemClick(View view, int position, boolean isLongClick) {
-                if(isLongClick)
-                    Toast.makeText(context, "LONG: " + produto.getNome(), Toast.LENGTH_SHORT).show();
-                /* if(itemView.getBackground() == null || ((ColorDrawable) itemView.getBackground()).getColor() == 0){
-                    itemView.setBackgroundColor(Color.GREEN);
-                    btnProdremove.setImageResource(R.drawable.ic_action_cancel);
-                }else if(((ColorDrawable) itemView.getBackground()).getColor() == -16711936) {
-                    itemView.setBackgroundColor(0x00000000);
-                    btnProdremove.setImageResource(R.drawable.ic_action_add); */
-                else
-                    Toast.makeText(context, "SHORT: " + produto.getNome(), Toast.LENGTH_SHORT).show();
+            public void onItemClick(View view, int position, boolean isLongClick, int layoutPostion) {
+                if (isLongClick)
+                    Toast.makeText(context, "LONG: " + produtos.get(position).getNome() + " " + produtos.get(position).getPreco(), Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(context, "SHORT: " + produtos.get(position).getNome() + " " + produtos.get(position).getPreco(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -66,10 +67,7 @@ public class ListaRemoveRecycleAdapter extends RecyclerView.Adapter<ListaRemoveV
         return produtos.size();
     }
 
-    /*
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ListaRemoveViewHolder listaRemoveViewHolder = (ListaRemoveViewHolder) holder;
-        Produto produto = produtos.get(position);
-        listaRemoveViewHolder.nomeProdremove.setText(produto.getNome());
-    }*/
+    public ArrayList<Produto> getListaProduto() {
+        return listaProduto;
+    }
 }

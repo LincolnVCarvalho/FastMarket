@@ -26,20 +26,9 @@ public class ListaRemoveViewHolder extends RecyclerView.ViewHolder implements Vi
         nomeProdremove = (TextView) itemView.findViewById(R.id.txtListaFinalizadaPordNome);
         btnProdremove = (ImageView) itemView.findViewById(R.id.btnDeleteListaFinalizada);
 
-        /*itemView.setOnClickListener(this);
-        itemView.setOnLongClickListener(this);*/
-
         btnProdremove.setOnClickListener(this);
         btnProdremove.setOnLongClickListener(this);
 
-        /*btnProdremove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                }
-            }
-        });*/
     }
 
     public void setItemClickListener(ItemClickListener itemClickListener){
@@ -48,12 +37,12 @@ public class ListaRemoveViewHolder extends RecyclerView.ViewHolder implements Vi
 
     @Override
     public void onClick(View v) {
-        itemClickListener.onItemClick(v, getAdapterPosition(), false);
+        itemClickListener.onItemClick(v, getAdapterPosition(), false, getLayoutPosition());
     }
 
     @Override
     public boolean onLongClick(View v) {
-        itemClickListener.onItemClick(v, getAdapterPosition(), true);
+        itemClickListener.onItemClick(v, getAdapterPosition(), true, getLayoutPosition());
         return true;
     }
 }

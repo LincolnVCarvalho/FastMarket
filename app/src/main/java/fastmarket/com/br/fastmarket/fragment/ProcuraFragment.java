@@ -14,6 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +99,7 @@ public class ProcuraFragment extends Fragment {
                 produto = new ProdutoDAO().getProduto(autoProduto.getText().toString());
                 if(produto != null) {
                     procuraNome.setText(produto.getNome());
-                    procuraPreco.setText(produto.getPreco().toString());
+                    procuraPreco.setText("R$ " + produto.getPreco().toString().replace(".", ","));
                     procuraCorredor.setText(String.valueOf(produto.getCorredor()));
                 }
             }
