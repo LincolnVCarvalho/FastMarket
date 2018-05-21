@@ -15,7 +15,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorControlNormal">@color/colorIcons</item>
         <item name="android:textColorHint">@color/colorIcons</item>
-        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowBackground">@color/colorPrimaryLight</item>
         <item name="android:textColor">@color/colorIcons</item>
     </style>
 
