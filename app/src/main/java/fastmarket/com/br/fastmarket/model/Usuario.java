@@ -2,6 +2,7 @@ package fastmarket.com.br.fastmarket.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 public class Usuario implements Serializable {
 
@@ -84,5 +85,24 @@ public class Usuario implements Serializable {
                 ", nascimento=" + nascimento +
                 ", cpf=" + cpf +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return id == usuario.id &&
+                cpf == usuario.cpf &&
+                Objects.equals(nome, usuario.nome) &&
+                Objects.equals(email, usuario.email) &&
+                Objects.equals(senha, usuario.senha) &&
+                Objects.equals(nascimento, usuario.nascimento);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, nome, email, senha, nascimento, cpf);
     }
 }

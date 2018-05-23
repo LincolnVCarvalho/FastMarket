@@ -25,11 +25,5 @@ public class ListaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
 
-        rclAddProd = (RecyclerView) findViewById(R.id.rclListaDeCompra);
-
-        ArrayList<Produto> p = new ProdutoDAO().getAllProdutos();
-        rclAddProd.setAdapter(new ListaADDRecycleAdapter(p, this));
-        RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        rclAddProd.setLayoutManager(layout);
     }
 }

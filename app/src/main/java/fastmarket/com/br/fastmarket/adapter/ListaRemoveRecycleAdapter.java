@@ -2,9 +2,11 @@ package fastmarket.com.br.fastmarket.adapter;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,6 +20,7 @@ import java.util.List;
 
 import fastmarket.com.br.fastmarket.R;
 import fastmarket.com.br.fastmarket.adapter.Interfaces.ItemClickListener;
+import fastmarket.com.br.fastmarket.fragment.ListaFragment;
 import fastmarket.com.br.fastmarket.holders.ListaRemoveViewHolder;
 import fastmarket.com.br.fastmarket.model.Produto;
 
@@ -27,12 +30,10 @@ import fastmarket.com.br.fastmarket.model.Produto;
 
 public class ListaRemoveRecycleAdapter extends RecyclerView.Adapter<ListaRemoveViewHolder> {
 
-    private List<Produto> produtos;
-    private ArrayList<Produto> listaProduto;
+    private ArrayList<Produto> produtos;
     private Context context;
-    private Produto produto;
 
-    public ListaRemoveRecycleAdapter(List<Produto> produtos, Context context) {
+    public ListaRemoveRecycleAdapter(ArrayList<Produto> produtos, Context context) {
         this.produtos = produtos;
         this.context = context;
     }
@@ -48,15 +49,18 @@ public class ListaRemoveRecycleAdapter extends RecyclerView.Adapter<ListaRemoveV
 
     @Override
     public void onBindViewHolder(@NonNull final ListaRemoveViewHolder holder, int position) {
-
         holder.nomeProdremove.setText(produtos.get(position).getNome());
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position, boolean isLongClick, int layoutPostion) {
-                if (isLongClick)
-                    Toast.makeText(context, "LONG: " + produtos.get(position).getNome() + " " + produtos.get(position).getPreco(), Toast.LENGTH_SHORT).show();
-                else {
-                    Toast.makeText(context, "SHORT: " + produtos.get(position).getNome() + " " + produtos.get(position).getPreco(), Toast.LENGTH_SHORT).show();
+                if (isLongClick) {
+                    //Toast.makeText(context, "LONG: " + produtos.get(position).getNome() + " " + produtos.get(position).getPreco(), Toast.LENGTH_SHORT).show();
+                    deletaProd(position);
+                }else {
+                    Toast.makeText(context, "Pressione por 1 segundo o X para remover o produto", Toast.LENGTH_SHORT).show();
+                    /*Toast.makeText(context, "Descrição: " + produtos.get(position).getNome() + "\n" +
+                            "Preço: R$ " + produtos.get(position).getPreco() + "\n" +
+                            "Corredor: " + produtos.get(position).getCorredor(), Toast.LENGTH_SHORT).show();*/
                 }
             }
         });
@@ -67,7 +71,20 @@ public class ListaRemoveRecycleAdapter extends RecyclerView.Adapter<ListaRemoveV
         return produtos.size();
     }
 
-    public ArrayList<Produto> getListaProduto() {
-        return listaProduto;
+
+    public void deletaProd(final int pos){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Você deseja remover " + produtos.get(pos).getNome() + "!?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        produtos.remove(pos);
+                        notifyItemRemoved(pos);
+                    }
+                })
+                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+       builder.create().show();
     }
 }

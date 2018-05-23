@@ -26,6 +26,7 @@ public class ListaRemoveViewHolder extends RecyclerView.ViewHolder implements Vi
         nomeProdremove = (TextView) itemView.findViewById(R.id.txtListaFinalizadaPordNome);
         btnProdremove = (ImageView) itemView.findViewById(R.id.btnDeleteListaFinalizada);
 
+        //itemView.setOnClickListener(this);
         btnProdremove.setOnClickListener(this);
         btnProdremove.setOnLongClickListener(this);
 

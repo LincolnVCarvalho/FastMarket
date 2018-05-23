@@ -102,6 +102,7 @@ public class ProcuraFragment extends Fragment {
                     procuraPreco.setText("R$ " + produto.getPreco().toString().replace(".", ","));
                     procuraCorredor.setText(String.valueOf(produto.getCorredor()));
                 }
+                autoProduto.setText("");
             }
         });
 

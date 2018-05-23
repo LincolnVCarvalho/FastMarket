@@ -24,10 +24,11 @@
         android:layout_height="50dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/txtListaFinalizadaPordNome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/txtListaFinalizadaPordNome"
         app:layout_constraintTop_toTopOf="@+id/txtListaFinalizadaPordNome"
-        app:srcCompat="@drawable/ic_action_add" />
+        app:srcCompat="@drawable/ic_action_cancel" />
 </android.support.constraint.ConstraintLayout>

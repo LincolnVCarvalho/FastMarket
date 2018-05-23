@@ -1,5 +1,7 @@
 package fastmarket.com.br.fastmarket.model;
 
+import java.util.Objects;
+
 public class Produto {
 
     private int id;
@@ -57,5 +59,22 @@ public class Produto {
                 ", preco=" + preco +
                 ", corredor=" + corredor +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Produto produto = (Produto) o;
+        return id == produto.id &&
+                corredor == produto.corredor &&
+                Objects.equals(nome, produto.nome) &&
+                Objects.equals(preco, produto.preco);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, nome, preco, corredor);
     }
 }
