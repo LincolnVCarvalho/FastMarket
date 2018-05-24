@@ -1,10 +1,8 @@
 package fastmarket.com.br.fastmarket.fragment;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,32 +18,45 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
-import fastmarket.com.br.fastmarket.activity.ListaActivity;
 import fastmarket.com.br.fastmarket.R;
-import fastmarket.com.br.fastmarket.adapter.DropDownItemAdapter;
-import fastmarket.com.br.fastmarket.adapter.ListaADDRecycleAdapter;
+import fastmarket.com.br.fastmarket.activity.MainActivity;
 import fastmarket.com.br.fastmarket.adapter.ListaRemoveRecycleAdapter;
+import fastmarket.com.br.fastmarket.dao.ListaDAO;
 import fastmarket.com.br.fastmarket.dao.ProdutoDAO;
+import fastmarket.com.br.fastmarket.dao.UsuarioDAO;
+import fastmarket.com.br.fastmarket.helper.Preferencias;
+import fastmarket.com.br.fastmarket.model.ItensLista;
+import fastmarket.com.br.fastmarket.model.Lista;
 import fastmarket.com.br.fastmarket.model.Produto;
+import fastmarket.com.br.fastmarket.model.Usuario;
 
 
-public class ListaFragment extends Fragment {
+public class ListaFragment extends Fragment{
+
     private static final String ARG_SECTION_NUMBER = "section_number";
     public String[] item = new String[] {"Digite um Produto..."};
+
+    private long idLista;
+
     private ArrayList<Produto> listaProduto = new ArrayList<>();
+    private ArrayList<ItensLista> itensListas;
+    private ArrayAdapter<String> adapter;
 
     private Produto produto;
+
     private TextView txtListaVazia;
     private RecyclerView rclLista;
     private Button btnCriarLista;
     private AutoCompleteTextView autoLista;
-
-    private ArrayAdapter<String> adapter;
 
     public ListaFragment() {
     }
@@ -136,7 +147,12 @@ public class ListaFragment extends Fragment {
                 builder.setMessage("Você deseja finalizar sua lista!?")
                         .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                finalizarLista();
+                                if(finalizarLista()){
+                                    salvaLista();
+                                    ((MainActivity)getActivity()).selectFragment(3);
+                                }else{
+
+                                }
                             }
                         }).setNegativeButton("Não", new DialogInterface.OnClickListener() {
                     @Override
@@ -172,7 +188,76 @@ public class ListaFragment extends Fragment {
         getFragmentManager().beginTransaction().detach(this).attach(this).commit();
     }
 
-    private void finalizarLista(){
+    private boolean finalizarLista() {
+        if(listaProduto.size() > 0){
+            quickSort(listaProduto, 0, listaProduto.size() - 1);
+            for (int i = 0; i < listaProduto.size(); i++) {
+                Log.e("QUICK", "Corredor: " + listaProduto.get(i).getCorredor() + " Produto: " + listaProduto.get(i).getNome());
+            }
+            return true;
+        }else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Sua lista esta vazia!")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            txtListaVazia.setVisibility(View.VISIBLE);
+                        }
+                    });
+            builder.create().show();
+        }
+        return false;
+    }
 
+    private void salvaLista(){
+
+        Preferencias preferencias = new Preferencias(getActivity());
+        HashMap<String, String> user = preferencias.getDadosUsuario();
+        Usuario u = new UsuarioDAO().getUsuario(user.get("email"));
+        itensListas = new ArrayList<>();
+        idLista = new ListaDAO().criaLista(new Lista(0, u.getId(), getDate()));
+        if(idLista != -1){
+            Log.e("#","idLista: " + idLista);
+            for (int i = 0; i > listaProduto.size(); i++){
+                itensListas.set(i, new ItensLista(0, listaProduto.get(i).getId(), (int) idLista,1));
+                Log.e("#","ItensListaArray: " + itensListas.get(i));
+            }
+            if(new ListaDAO().criaItensLista(itensListas)){
+                Toast.makeText(getActivity(), "Ocorreu um irro ao inserir IntensLista", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getActivity(), "Ocorreu um irro ao inserir Lista", Toast.LENGTH_SHORT).show();
+        }
+        Log.e("#","Lista: " + new ListaDAO().getLista(2));
+    }
+    private String getDate(){
+        SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = mdformat.format(Calendar.getInstance().getTime());
+        return strDate;
+    }
+
+    public static void quickSort(ArrayList<Produto> v, int esquerda, int direita) {
+        int esq = esquerda;
+        int dir = direita;
+        int pivo = v.get((esq + dir) / 2).getCorredor();
+        int troca;
+        while (esq <= dir) {
+            while (v.get(esq).getCorredor() < pivo) {
+                esq = esq + 1;
+            }
+            while (v.get(dir).getCorredor() > pivo) {
+                dir = dir - 1;
+            }
+            if (esq <= dir) {
+                troca = v.get(esq).getCorredor();
+                v.get(esq).setCorredor(v.get(dir).getCorredor());
+                v.get(dir).setCorredor(troca);
+                esq = esq + 1;
+                dir = dir - 1;
+            }
+        }
+        if (dir > esquerda)
+            quickSort(v, esquerda, dir);
+        if (esq < direita)
+            quickSort(v, esq, direita);
     }
 }

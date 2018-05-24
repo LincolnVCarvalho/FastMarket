@@ -41,7 +41,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rclListaFinalizada"
             android:layout_width="0dp"
-            android:layout_height="280dp"
+            android:layout_height="285dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"

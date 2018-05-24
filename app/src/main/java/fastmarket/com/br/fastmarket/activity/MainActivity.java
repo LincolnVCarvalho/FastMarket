@@ -99,4 +99,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, HistoricoActivity.class);
         startActivity(intent);
     }
+
+    public void selectFragment(int position){
+        mViewPager.setCurrentItem(position, true);
+    }
 }

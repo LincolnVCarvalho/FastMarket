@@ -1,10 +1,56 @@
 package fastmarket.com.br.fastmarket.dao;
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 import fastmarket.com.br.fastmarket.db.MainDB;
+import fastmarket.com.br.fastmarket.model.ItensLista;
+import fastmarket.com.br.fastmarket.model.Lista;
 
 public class ListaDAO {
+
+    public Lista getLista(int id){
+        SQLiteDatabase db = MainDB.getInstacia().getReadableDatabase();
+        String query = "SELECT * FROM " + MainDB.TABBELA_LISTA + " WHERE USUARIO_ID = " + id ;
+        Cursor c = db.rawQuery(query, null);
+        Lista lista = new Lista();
+
+        if(c.moveToFirst()) {
+            do{
+                lista.setId(c.getInt(0));
+                lista.setId_Usuario(c.getInt(1));
+                lista.setDataCriacaoLista(c.getString(2));
+            }while (c.moveToNext());
+        }
+        c.close();
+        return lista;
+    }
+
+    public long criaLista(Lista lista){
+        SQLiteDatabase db = MainDB.getInstacia().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("USUARIO_ID", lista.getId_Usuario());
+        cv.put("DATA_LISTA", lista.getDataCriacaoLista());
+
+        return db.insert(MainDB.TABBELA_LISTA, null, cv);
+    }
+
+    //TODO
+    public boolean criaItensLista(ArrayList<ItensLista> itensLista){
+        SQLiteDatabase db = MainDB.getInstacia().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        for (ItensLista i: itensLista) {
+            cv.put("LISTA_ID", i.getId_lista());
+            cv.put("PRODUTO_ID", i.getId_produto());
+            cv.put("QTDE", i.getQtde());
+        }
+        return db.insert(MainDB.TABBELA_ITENS_LISTA, null, cv) != -1;
+    }
 
     public void brute(){
         bruteData();
@@ -142,6 +188,7 @@ public class ListaDAO {
 
         db.execSQL(query);
     }
+
     public void removerTabelaLista(){
         SQLiteDatabase db = MainDB.getInstacia().getWritableDatabase();
 
