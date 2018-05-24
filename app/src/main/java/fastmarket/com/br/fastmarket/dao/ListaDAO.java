@@ -29,6 +29,28 @@ public class ListaDAO {
         return lista;
     }
 
+    public ArrayList<ItensLista> getItensLista(int id){
+        SQLiteDatabase db = MainDB.getInstacia().getReadableDatabase();
+        String query = "SELECT * FROM " + MainDB.TABBELA_ITENS_LISTA + " WHERE LISTA_ID = " + id ;
+        Cursor c = db.rawQuery(query, null);
+
+        ArrayList<ItensLista> itensListas = new ArrayList<>();
+
+        if(c.moveToFirst()) {
+            do{
+                ItensLista i = new ItensLista();
+                i.setId(c.getInt(0));
+                i.setId_lista(c.getInt(1));
+                i.setId_produto(c.getInt(2));
+                i.setQtde(c.getInt(3));
+                itensListas.add(i);
+            }while (c.moveToNext());
+        }
+        c.close();
+
+        return itensListas;
+    }
+
     public long criaLista(Lista lista){
         SQLiteDatabase db = MainDB.getInstacia().getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -41,15 +63,20 @@ public class ListaDAO {
 
     //TODO
     public boolean criaItensLista(ArrayList<ItensLista> itensLista){
-        SQLiteDatabase db = MainDB.getInstacia().getWritableDatabase();
-        ContentValues cv = new ContentValues();
+        try {
+            SQLiteDatabase db = MainDB.getInstacia().getWritableDatabase();
+            ContentValues cv = new ContentValues();
 
-        for (ItensLista i: itensLista) {
-            cv.put("LISTA_ID", i.getId_lista());
-            cv.put("PRODUTO_ID", i.getId_produto());
-            cv.put("QTDE", i.getQtde());
+            for (ItensLista i : itensLista) {
+                cv.put("LISTA_ID", i.getId_lista());
+                cv.put("PRODUTO_ID", i.getId_produto());
+                cv.put("QTDE", i.getQtde());
+                db.insert(MainDB.TABBELA_ITENS_LISTA, null, cv);
+            }
+        }catch (Exception e){
+            return true;
         }
-        return db.insert(MainDB.TABBELA_ITENS_LISTA, null, cv) != -1;
+        return false;
     }
 
     public void brute(){
@@ -160,7 +187,7 @@ public class ListaDAO {
                 "('97', '13', 'data2', 'data2'), " +
                 "('98', '13', 'data2', 'data2'), " +
                 "('99', '13', 'data2', 'data2'), " +
-                "('100', '13', 'data2', 'data2'), " ;
+                "('100', '13', 'data2', 'data2') " ;
         db.rawQuery(query, null);
     }
 

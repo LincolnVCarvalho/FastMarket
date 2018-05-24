@@ -8,20 +8,22 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import fastmarket.com.br.fastmarket.R;
 import fastmarket.com.br.fastmarket.dao.UsuarioDAO;
+import fastmarket.com.br.fastmarket.helper.Preferencias;
 import fastmarket.com.br.fastmarket.model.Usuario;
 
 public class AlteraDadosActivity extends AppCompatActivity {
 
-    private EditText txtNome;
-    private EditText txtEmail;
-    private EditText txtSenha;
-    private EditText txtSenhaC;
-    private EditText txtNascimento;
-    private EditText txtCpf;
+    private EditText txtNomeAtualiza;
+    private EditText txtEmailAtualiza;
+    private EditText txtSenhaAtualiza;
+    private EditText txtSenhaCAtualiza;
+    private EditText txtNascimentoAtualiza;
+    private EditText txtCpfAtualiza;
     private Button btnAtualizar;
     private Usuario usuario;
     private List<String> validacao;
@@ -30,14 +32,16 @@ public class AlteraDadosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_altera_dados);
-        usuario = (Usuario) getIntent().getSerializableExtra("usuarioLogado");
+        Preferencias preferencias = new Preferencias(this);
+        HashMap<String, String> user = preferencias.getDadosUsuario();
+        usuario = new UsuarioDAO().getUsuario(user.get("loginEmail"));
 
-        txtNome = findViewById(R.id.txtAtualizaNome);
-        txtEmail = findViewById(R.id.txtAtualizaEmail);
-        txtSenha = findViewById(R.id.txtAtualizaSenha);
-        txtSenhaC = findViewById(R.id.txtAtualizaSenhaConf);
-        txtNascimento = findViewById(R.id.txtAtualizaNome);
-        txtCpf = findViewById(R.id.txtAtualizaCPF);
+        txtNomeAtualiza = findViewById(R.id.txtAtualizaNome);
+        txtEmailAtualiza = findViewById(R.id.txtAtualizaEmail);
+        txtSenhaAtualiza = findViewById(R.id.txtAtualizaSenha);
+        txtSenhaCAtualiza = findViewById(R.id.txtAtualizaSenhaConf);
+        txtNascimentoAtualiza = findViewById(R.id.txtAtualizaNasci);
+        txtCpfAtualiza = findViewById(R.id.txtAtualizaCPF);
         btnAtualizar = findViewById(R.id.btnAtualizaDados);
 
         carregaDadods();
@@ -49,17 +53,16 @@ public class AlteraDadosActivity extends AppCompatActivity {
                 alteraDados();
             }
         });
-
     }
-
 
     public void carregaDadods(){
         if(usuario != null) {
-            txtNome.setText(usuario.getNome());
-            txtSenha.setText(usuario.getSenha());
-            txtEmail.setText(usuario.getEmail());
-            txtNascimento.setText(usuario.getNascimento());
-            txtCpf.setText(String.valueOf(usuario.getCpf()));
+            txtNomeAtualiza.setText(usuario.getNome());
+            txtEmailAtualiza.setText(usuario.getEmail());
+            txtSenhaAtualiza.setText(usuario.getSenha());
+            txtSenhaCAtualiza.setText(usuario.getSenha());
+            txtNascimentoAtualiza.setText(usuario.getNascimento());
+            txtCpfAtualiza.setText(String.valueOf(usuario.getCpf()));
         }else{
             Toast.makeText(this, "Erro ao carregar usuario!", Toast.LENGTH_SHORT).show();
         }
@@ -67,11 +70,11 @@ public class AlteraDadosActivity extends AppCompatActivity {
 
     public void alteraDados(){
         if (validacao.isEmpty()) {
-            usuario.setNome(txtNome.getText().toString());
-            usuario.setSenha(txtSenhaC.getText().toString());
-            usuario.setEmail(txtEmail.getText().toString());
-            usuario.setNascimento(txtNascimento.getText().toString());
-            usuario.setCpf(Integer.parseInt(txtCpf.getText().toString()));
+            usuario.setNome(txtNomeAtualiza.getText().toString());
+            usuario.setSenha(txtSenhaCAtualiza.getText().toString());
+            usuario.setEmail(txtEmailAtualiza.getText().toString());
+            usuario.setNascimento(txtNascimentoAtualiza.getText().toString());
+            usuario.setCpf(Integer.parseInt(txtCpfAtualiza.getText().toString()));
 
             if (new UsuarioDAO().updateUsuario(usuario)) {
                 Toast.makeText(this, "Pessoa foi alterada com sucesso!", Toast.LENGTH_SHORT).show();
@@ -87,40 +90,40 @@ public class AlteraDadosActivity extends AppCompatActivity {
     public void validaCampos(){
         validacao = new ArrayList<String>();
 
-        if(txtNome.getText().toString().equals("")) {
+        if(txtNomeAtualiza.getText().toString().equals("")) {
             validacao.add("Nome");
-            txtNome.setError("Digite um nome");
-            txtNome.requestFocus();
+            txtNomeAtualiza.setError("Digite um nome");
+            txtNomeAtualiza.requestFocus();
         }
-        if(txtSenha.getText().toString().equals("")){
+        if(txtSenhaAtualiza.getText().toString().equals("")){
             validacao.add("Senha");
-            txtSenha.setError("Digite uma senha!");
-            txtSenha.requestFocus();
+            txtSenhaAtualiza.setError("Digite uma senha!");
+            txtSenhaAtualiza.requestFocus();
         }
-        if(txtSenhaC.getText().toString().equals("")){
+        if(txtSenhaCAtualiza.getText().toString().equals("")){
             validacao.add("Senha");
-            txtSenhaC.setError("Confirme a senha!");
-            txtSenhaC.requestFocus();
+            txtSenhaCAtualiza.setError("Confirme a senha!");
+            txtSenhaCAtualiza.requestFocus();
         }
-        if(!txtSenha.getText().toString().equals(txtSenhaC.getText().toString())) {
+        if(!txtSenhaAtualiza.getText().toString().equals(txtSenhaCAtualiza.getText().toString())) {
             validacao.add("Senha Diferentes");
-            txtSenhaC.setError("Senha nao se conhecidem!");
-            txtSenhaC.requestFocus();
+            txtSenhaCAtualiza.setError("Senha nao se conhecidem!");
+            txtSenhaCAtualiza.requestFocus();
         }
-        if(txtEmail.getText().toString().equals("")) {
+        if(txtEmailAtualiza.getText().toString().equals("")) {
             validacao.add("Email");
-            txtEmail.setError("Digite um email");
-            txtEmail.requestFocus();
+            txtEmailAtualiza.setError("Digite um email");
+            txtEmailAtualiza.requestFocus();
         }
-        if(txtNascimento.getText().toString().equals("")) {
+        if(txtNascimentoAtualiza.getText().toString().equals("")) {
             validacao.add("Nascimento");
-            txtNascimento.setError("Digite uma data");
-            txtNascimento.requestFocus();
+            txtNascimentoAtualiza.setError("Digite uma data");
+            txtNascimentoAtualiza.requestFocus();
         }
-        if(txtCpf.getText().toString().equals("")) {
+        if(txtCpfAtualiza.getText().toString().equals("")) {
             validacao.add("CPF");
-            txtCpf.setError("Digite um CPF!");
-            txtCpf.requestFocus();
+            txtCpfAtualiza.setError("Digite um CPF!");
+            txtCpfAtualiza.requestFocus();
         }
     }
 }

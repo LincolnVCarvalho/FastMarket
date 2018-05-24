@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Usuario usuario;
     private Produto produto;
-    //Criação de um vetor com todos os meses do ano.
 
 
 

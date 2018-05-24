@@ -212,27 +212,34 @@ public class ListaFragment extends Fragment{
 
         Preferencias preferencias = new Preferencias(getActivity());
         HashMap<String, String> user = preferencias.getDadosUsuario();
-        Usuario u = new UsuarioDAO().getUsuario(user.get("email"));
-        itensListas = new ArrayList<>();
+        Usuario u = new UsuarioDAO().getUsuario(user.get("loginEmail"));
+
         idLista = new ListaDAO().criaLista(new Lista(0, u.getId(), getDate()));
         if(idLista != -1){
-            Log.e("#","idLista: " + idLista);
-            for (int i = 0; i > listaProduto.size(); i++){
-                itensListas.set(i, new ItensLista(0, listaProduto.get(i).getId(), (int) idLista,1));
-                Log.e("#","ItensListaArray: " + itensListas.get(i));
-            }
-            if(new ListaDAO().criaItensLista(itensListas)){
+            if(new ListaDAO().criaItensLista(montaListaProdutos()))
                 Toast.makeText(getActivity(), "Ocorreu um irro ao inserir IntensLista", Toast.LENGTH_SHORT).show();
-            }
-        }else{
+        }else
             Toast.makeText(getActivity(), "Ocorreu um irro ao inserir Lista", Toast.LENGTH_SHORT).show();
-        }
+
         Log.e("#","Lista: " + new ListaDAO().getLista(2));
+        for (ItensLista i: new ListaDAO().getItensLista((int) idLista)){
+            Log.e("#","ListaItens: " + i.toString());
+        }
+
+
     }
     private String getDate(){
         SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = mdformat.format(Calendar.getInstance().getTime());
         return strDate;
+    }
+
+    private ArrayList<ItensLista> montaListaProdutos(){
+        itensListas = new ArrayList<>();
+        for (int i = 0; i < listaProduto.size(); i++){
+            itensListas.add(new ItensLista(0, listaProduto.get(i).getId(), (int) idLista,1));
+        }
+        return itensListas;
     }
 
     public static void quickSort(ArrayList<Produto> v, int esquerda, int direita) {

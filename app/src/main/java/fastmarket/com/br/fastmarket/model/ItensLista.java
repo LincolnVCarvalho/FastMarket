@@ -55,10 +55,10 @@ public class ItensLista {
     @Override
     public String toString() {
         return "ItensLista{" +
-                "id=" + id +
-                ", id_produto=" + id_produto +
-                ", id_lista=" + id_lista +
-                ", qtde=" + qtde +
+                "ID = " + id +
+                ", Produto ID = " + id_produto +
+                ", Lista ID = " + id_lista +
+                ", QTDE = " + qtde +
                 '}';
     }
 
