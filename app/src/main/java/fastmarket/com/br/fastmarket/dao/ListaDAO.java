@@ -3,6 +3,7 @@ package fastmarket.com.br.fastmarket.dao;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,66 @@ import fastmarket.com.br.fastmarket.model.ItensLista;
 import fastmarket.com.br.fastmarket.model.Lista;
 
 public class ListaDAO {
+
+    public String getIdLista(int id){
+        SQLiteDatabase db = MainDB.getInstacia().getReadableDatabase();
+        String query = "SELECT ID FROM LISTA WHERE USUARIO_ID = " + id;
+        Cursor c = db.rawQuery(query, null);
+        String idLista ="";
+        if (c.moveToLast())
+            idLista = c.getString(0);
+
+        c.close();
+        return idLista;
+    }
+
+    public ArrayList<Lista> getHistoricoLista(int id){
+        try {
+            SQLiteDatabase db = MainDB.getInstacia().getReadableDatabase();
+            ArrayList<String> itens;
+            ArrayList<Lista> listas = new ArrayList<>();
+            Lista lista;
+            String query = "    SELECT LISTA.ID, LISTA.DATA_LISTA, PRODUTO.NOME, LISTA.USUARIO_ID FROM ((ITENS_LISTA    " +
+                    "   INNER JOIN LISTA ON ITENS_LISTA.LISTA_ID = LISTA.ID)  " +
+                    "   INNER JOIN PRODUTO ON ITENS_LISTA.PRODUTO_ID = PRODUTO.ID); " +
+                    "   WHERE LISTA.USUARIO_ID = " + id;
+
+            Cursor c = db.rawQuery(query, null);
+
+            if (c.moveToFirst()) {
+                do {
+                    Log.e("#", "USUARIO È ESTE: " + c.getInt(3));
+                    int i = 0;
+                    lista = new Lista();
+                    lista.setId(c.getInt(0));
+                    lista.setId_Usuario(id);
+                    lista.setDataCriacaoLista(c.getString(1));
+                    itens = new ArrayList<>();
+                    while (i == 0) {
+                        if (lista.getId() == c.getInt(0)) {
+                            itens.add(c.getString(2));
+                            c.moveToNext();
+                        } else {
+                            c.moveToPrevious();
+                            i = 1;
+                        }
+
+                        if (c.isLast()) {
+                            itens.add(c.getString(2));
+                            break;
+                        }
+                    }
+
+                    lista.setItensLista(itens);
+                    listas.add(lista);
+                } while (c.moveToNext());
+            }
+            c.close();
+            return listas;
+        }catch (Exception e){
+            return null;
+        }
+    }
 
     public Lista getLista(int id){
         SQLiteDatabase db = MainDB.getInstacia().getReadableDatabase();

@@ -1,68 +1,98 @@
 package fastmarket.com.br.fastmarket.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import fastmarket.com.br.fastmarket.R;
 import fastmarket.com.br.fastmarket.adapter.ExpandableListViewAdapter;
+import fastmarket.com.br.fastmarket.dao.ListaDAO;
+import fastmarket.com.br.fastmarket.dao.UsuarioDAO;
+import fastmarket.com.br.fastmarket.helper.Preferencias;
 import fastmarket.com.br.fastmarket.model.Lista;
+import fastmarket.com.br.fastmarket.model.Usuario;
 
 public class HistoricoActivity extends AppCompatActivity {
 
     private ExpandableListView listView;
     private ExpandableListAdapter listAdapter;
     private List<String> listDataHeader;
-    private HashMap<String, List<String>> listHashMap;
-
+    private ArrayList<ArrayList<String>> listHashMap;
+    private Button btnVoltar;
+    private TextView txtNaotem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historico);
+        txtNaotem = (TextView) findViewById(R.id.txtNaoTemHist);
 
         listView = (ExpandableListView) findViewById(R.id.listExp);
-        initData();
-        listAdapter = new ExpandableListViewAdapter(this, listDataHeader, listHashMap);
-        listView.setAdapter(listAdapter);
+        if(initData()) {
+            txtNaotem.setVisibility(View.INVISIBLE);
+            listAdapter = new ExpandableListViewAdapter(this, listDataHeader, listHashMap);
+            listView.setAdapter(listAdapter);
+        }else
+            txtNaotem.setVisibility(View.VISIBLE);
+
+        btnVoltar = (Button) findViewById(R.id.btnVoltarHistorico);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HistoricoActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    private void initData() {
+    private boolean initData() {
         listDataHeader = new ArrayList<>();
-        listHashMap  = new HashMap<>();
+        listHashMap = new ArrayList<>();
+        ArrayList<Lista> l;
+        Preferencias preferencias = new Preferencias(this);
+        HashMap<String, String> user = preferencias.getDadosUsuario();
+        Usuario u = new UsuarioDAO().getUsuario(user.get("loginEmail"));
+        l = new ListaDAO().getHistoricoLista(u.getId());
 
-        listDataHeader.add("02/01/2018");
-        listDataHeader.add("30/01/2018");
-        listDataHeader.add("12/03/2018");
-        listDataHeader.add("15/03/2018");
-        //listDataHeader.add("24/04/2018");
+        if (l.size()  != 0) {
+            txtNaotem.setVisibility(View.INVISIBLE);
+            ArrayList<String> aux;
+            ArrayList<ArrayList<String>> listas = new ArrayList<>();
 
-        List<String> edmtDev = new ArrayList<>();
-            edmtDev.add("This is Expanable ListView!");
+            for (int i = 0; i < 5; i++) {
+                if (i < l.size())
+                    listDataHeader.add(l.get((l.size() - 1) - i).getDataCriacaoLista());
+            }
 
-        List<String> andoridStudio = new ArrayList<>();
-        andoridStudio.add("This is Expanable ListView!");
-        andoridStudio.add("This is Expanable ListView!");
-        andoridStudio.add("This is Expanable ListView!");
-        List<String> xamarin = new ArrayList<>();
-        xamarin.add("This is Expanable ListView!");
-        xamarin.add("This is Expanable ListView!");
-        xamarin.add("This is Expanable ListView!");
-        xamarin.add("This is Expanable ListView!");
-        List<String> uwp = new ArrayList<>();
-        uwp.add("This is Expanable ListView!");
-        uwp.add("This is Expanable ListView!");
-        uwp.add("This is Expanable ListView!");
-        uwp.add("This is Expanable ListView!");
+            for (int i = 0; i < 5; i++) {
+                if (i < l.size()) {
+                    aux = new ArrayList<>();
+                    for (String a : l.get((l.size() - 1) - i).getItensLista()) {
+                        aux.add(a);
+                    }
+                    listas.add(aux);
+                }
+            }
 
-        listHashMap.put(listDataHeader.get(0), edmtDev);
-        listHashMap.put(listDataHeader.get(1), andoridStudio);
-        listHashMap.put(listDataHeader.get(2), xamarin);
-        listHashMap.put(listDataHeader.get(3), uwp);
+            for (int i = 0; i < 5; i++) {
+                if (i < l.size())
+                    listHashMap.add(listas.get(i));
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

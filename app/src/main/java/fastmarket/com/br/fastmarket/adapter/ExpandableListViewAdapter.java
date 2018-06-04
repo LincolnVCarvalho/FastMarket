@@ -8,19 +8,21 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import fastmarket.com.br.fastmarket.R;
+import fastmarket.com.br.fastmarket.model.Lista;
 
 
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> listDataHeader;
-    private HashMap<String, List<String>> listaHashMap;
+    private ArrayList<ArrayList<String>> listaHashMap;
 
-    public ExpandableListViewAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listaHashMap) {
+    public ExpandableListViewAdapter(Context context, List<String> listDataHeader, ArrayList<ArrayList<String>> listaHashMap) {
         this.context = context;
         this.listDataHeader = listDataHeader;
         this.listaHashMap = listaHashMap;
@@ -33,7 +35,8 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return listaHashMap.get(listDataHeader.get(groupPosition)).size();
+        return listaHashMap.get(groupPosition).size();
+        //return listaHashMap.get(listDataHeader.get(groupPosition)).size();
     }
 
     @Override
@@ -43,7 +46,8 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return listaHashMap.get(listDataHeader.get(childPosition)).get(childPosition);
+        return listaHashMap.get(groupPosition).get(childPosition);
+        //return listaHashMap.get(listDataHeader.get(childPosition)).get(childPosition);
     }
 
     @Override

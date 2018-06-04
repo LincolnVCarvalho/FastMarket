@@ -16,28 +16,30 @@
         <activity
             android:name=".activity.SplashScreenActivity"
             android:theme="@style/AppCompat.TelaCheia">
+
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.CadastroActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.AdminActivity" />
+        <activity
+            android:name=".activity.EsqueciActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.RecuperaTokenActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.HistoricoActivity" />
+        <activity android:name=".activity.AlteraDadosActivity" />
+        <activity android:name=".Testes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.LoginActivity"
-            android:theme="@style/EditTheme" />
-        <activity
-            android:name=".activity.CadastroActivity"
-            android:theme="@style/EditTheme" />
-        <activity android:name=".activity.AdminActivity" />
-        <activity
-            android:name=".activity.EsqueciActivity"
-            android:theme="@style/EditTheme" />
-        <activity
-            android:name=".activity.RecuperaTokenActivity"
-            android:theme="@style/EditTheme" />
-        <activity android:name=".activity.HistoricoActivity" />
-        <activity android:name=".activity.AlteraDadosActivity" />
-        <activity android:name=".Testes" />
         <activity android:name=".activity.ListaActivity"></activity>
     </application>
 

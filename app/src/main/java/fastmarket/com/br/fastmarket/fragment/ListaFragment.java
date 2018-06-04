@@ -45,8 +45,6 @@ public class ListaFragment extends Fragment{
     private static final String ARG_SECTION_NUMBER = "section_number";
     public String[] item = new String[] {"Digite um Produto..."};
 
-    private long idLista;
-
     private ArrayList<Produto> listaProduto = new ArrayList<>();
     private ArrayList<ItensLista> itensListas;
     private ArrayAdapter<String> adapter;
@@ -57,6 +55,7 @@ public class ListaFragment extends Fragment{
     private RecyclerView rclLista;
     private Button btnCriarLista;
     private AutoCompleteTextView autoLista;
+    private long idLista;
 
     public ListaFragment() {
     }
@@ -209,7 +208,6 @@ public class ListaFragment extends Fragment{
     }
 
     private void salvaLista(){
-
         Preferencias preferencias = new Preferencias(getActivity());
         HashMap<String, String> user = preferencias.getDadosUsuario();
         Usuario u = new UsuarioDAO().getUsuario(user.get("loginEmail"));
@@ -221,12 +219,7 @@ public class ListaFragment extends Fragment{
         }else
             Toast.makeText(getActivity(), "Ocorreu um irro ao inserir Lista", Toast.LENGTH_SHORT).show();
 
-        Log.e("#","Lista: " + new ListaDAO().getLista(2));
-        for (ItensLista i: new ListaDAO().getItensLista((int) idLista)){
-            Log.e("#","ListaItens: " + i.toString());
-        }
-
-
+        preferencias.saveListaAtual(savePreference());
     }
     private String getDate(){
         SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy");
@@ -242,6 +235,13 @@ public class ListaFragment extends Fragment{
         return itensListas;
     }
 
+    private ArrayList<String> savePreference(){
+        ArrayList<String> idsProd = new ArrayList<>();
+        for (int i = 0; i < listaProduto.size(); i++){
+            idsProd.add(listaProduto.get(i).getNome() + "-" + listaProduto.get(i).getCorredor());
+        }
+        return idsProd;
+    }
     public static void quickSort(ArrayList<Produto> v, int esquerda, int direita) {
         int esq = esquerda;
         int dir = direita;

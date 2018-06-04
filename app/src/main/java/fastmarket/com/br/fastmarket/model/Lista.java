@@ -1,13 +1,24 @@
 package fastmarket.com.br.fastmarket.model;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 /**
  * Created by 14153142 on 24/05/2018.
  */
 
 public class Lista {
-     private int id;
-     private int id_Usuario;
-     private String dataCriacaoLista;
+    private int id;
+    private int id_Usuario;
+    private String dataCriacaoLista;
+    private ArrayList<String> itensLista;
+
+    public Lista(int id, int id_Usuario, String dataCriacaoLista, ArrayList<String> itensLista) {
+        this.id = id;
+        this.id_Usuario = id_Usuario;
+        this.dataCriacaoLista = dataCriacaoLista;
+        this.itensLista = itensLista;
+    }
 
     public Lista(int id, int id_Usuario, String dataCriacaoLista) {
         this.id = id;
@@ -42,24 +53,12 @@ public class Lista {
         this.dataCriacaoLista = dataCriacaoLista;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Lista lista = (Lista) o;
-
-        if (id != lista.id) return false;
-        if (id_Usuario != lista.id_Usuario) return false;
-        return dataCriacaoLista.equals(lista.dataCriacaoLista);
+    public ArrayList<String> getItensLista() {
+        return itensLista;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + id_Usuario;
-        result = 31 * result + dataCriacaoLista.hashCode();
-        return result;
+    public void setItensLista(ArrayList<String> itensLista) {
+        this.itensLista = itensLista;
     }
 
     @Override
@@ -68,6 +67,24 @@ public class Lista {
                 "id=" + id +
                 ", id_Usuario=" + id_Usuario +
                 ", dataCriacaoLista='" + dataCriacaoLista + '\'' +
+                ", itensLista=" + itensLista +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lista lista = (Lista) o;
+        return id == lista.id &&
+                id_Usuario == lista.id_Usuario &&
+                Objects.equals(dataCriacaoLista, lista.dataCriacaoLista) &&
+                Objects.equals(itensLista, lista.itensLista);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, id_Usuario, dataCriacaoLista, itensLista);
     }
 }

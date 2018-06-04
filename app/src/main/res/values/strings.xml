@@ -20,4 +20,5 @@
     <string name="listaVazia">Lista vaiza =(</string>
     <string name="listaDeCompra">Lista de Compra</string>
     <string name="finalizaLista">Finalizar Lista</string>
+    <string name="ListaOrdenada">Lista de Compra montada</string>
 </resources>

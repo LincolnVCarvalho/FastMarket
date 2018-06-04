@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:fillViewport="true"
     android:focusableInTouchMode="true"
     tools:context=".activity.LoginActivity">
@@ -12,7 +11,6 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
         android:focusable="true"
         android:focusableInTouchMode="true"
         tools:layout_editor_absoluteY="81dp">
@@ -99,9 +97,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.45"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/fm_logo" />
+
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
