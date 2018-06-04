@@ -2,24 +2,30 @@ package fastmarket.com.br.fastmarket.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import fastmarket.com.br.fastmarket.R;
+import fastmarket.com.br.fastmarket.adapter.CoordinateRecycleAdapter;
 import fastmarket.com.br.fastmarket.helper.Preferencias;
 
 public class MapaFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private ArrayList<String> listaAtual;
+
     private TextView txtMapa;
-    private String[] produtos;
+    private RecyclerView lstvCoo;
+
     private ArrayList<String> corredoresProduto;
+    private ArrayList<String> listaAtual;
+    private String[] produtos;
+
 
     public MapaFragment() {
     }
@@ -38,7 +44,8 @@ public class MapaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mapa, container, false);
         Preferencias preferencias = new Preferencias(getActivity());
         listaAtual = new ArrayList<>(preferencias.getListaAtual());
-        txtMapa = (TextView) view.findViewById(R.id.txtMapa);
+        lstvCoo = (RecyclerView) view.findViewById(R.id.lstvCoordenada);
+
         for (String a : listaAtual) {
             a = a.replace("[", "");
             a = a.replace("]", "");
@@ -48,80 +55,62 @@ public class MapaFragment extends Fragment {
         return view;
     }
 
-    private void mapa(){
+    private void mapa() {
         prodPorCorre();
-        char[][] multi = new char[][] {
-                { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'E', '#', '#', '#', '#', 'C',
-                        '#', '#', '#', '#', '#', '#', '#', '#', '#' },
-                { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-                        ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
-                { '#', ' ', '#', '#', '#', ' ', '#', '#', '#', ' ', '#', '#', '#', '#', ' ', '#', '#', '#', '#', ' ',
-                        '#', '#', '#', ' ', '#', '#', '#', ' ', '#' },
-                { '#', ' ', '#', '#', '#', ' ', '#', '#', '#', ' ', '#', '#', '#', '#', ' ', '#', '#', '#', '#', ' ',
-                        '#', '#', '#', ' ', '#', '#', '#', ' ', '#' },
-                { '#', ' ', '#', '#', '#', ' ', '#', '#', '#', ' ', '#', '#', '#', '#', ' ', '#', '#', '#', '#', ' ',
-                        '#', '#', '#', ' ', '#', '#', '#', ' ', '#' },
-                { '#', '1', '#', '#', '#', '2', '#', '#', '#', '3', '#', '#', '#', '#', '4', '#', '#', '#', '#', '5',
-                        '#', '#', '#', '6', '#', '#', '#', '7', '#' },
-                { '#', ' ', '#', '#', '#', ' ', '#', '#', '#', ' ', '#', '#', '#', '#', ' ', '#', '#', '#', '#', ' ',
-                        '#', '#', '#', ' ', '#', '#', '#', ' ', '#' },
-                { '#', ' ', '#', '#', '#', ' ', '#', '#', '#', ' ', '#', '#', '#', '#', ' ', '#', '#', '#', '#', ' ',
-                        '#', '#', '#', ' ', '#', '#', '#', ' ', '#' },
-                { '#', ' ', '#', '#', '#', ' ', '#', '#', '#', ' ', '#', '#', '#', '#', ' ', '#', '#', '#', '#', ' ',
-                        '#', '#', '#', ' ', '#', '#', '#', ' ', '#' },
-                { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-                        ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
-                { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#',
-                        '#', '#', '#', '#', '#', '#', '#', '#', '#' }, };
 
-                corredoresProduto.add("100");
+        List<String> coordenate = new ArrayList<>();
 
-        // 0 = entrada 100 = saida (caixa)
-        int localAtual = 0;
-        txtMapa.setText("Tete");
-        // verifica��o do percurso que deve ser feito para concluir a compra
         for (String c : corredoresProduto) {
-            int diff = 0;
-            String aux = "";
-            if (localAtual == 0) {
-                if (Integer.parseInt(c) == 4)
-                    txtMapa.setText("Siga ate o corredor a sua frente.");
-                else if (Integer.parseInt(c) <= 3) {
-                    diff = 4 - Integer.parseInt(c);
-                    aux = "Vire a direita e entre no " + diff + "° corredor a esquerda";
-                    txtMapa.setText(aux);
-                } else {
-                    diff = Integer.parseInt(c) - 4;
-                    aux = "Vire a esquerda e entre no " + diff + "° corredor a direita";
-                    txtMapa.setText(aux);
-                }
-            } else if (Integer.parseInt(c) != 100) {
-                if (Integer.parseInt(c) == localAtual) {
-                    txtMapa.setText("Seu protudo se encontra nesse corredor.");
-                }
-                if (Integer.parseInt(c) > localAtual) {
-                    diff = Integer.parseInt(c) - localAtual;
-                    if (diff == 1) {
-                        aux = "Vá ao fundo do mercado, percorra " + diff + " corredor e vire a esquerda.";
-                        txtMapa.setText(aux);
-                    }else {
-                        aux = "Vá ao fundo do mercado, percorra " + diff + " corredores e vire a esquerda.";
-                        txtMapa.setText(aux);
-                    }
-                }
-            } else {
-                txtMapa.setText("Todos os produtos foram pegos, o caixa se encontra perto da entrada.");
+
+            switch (c){
+                case "1":
+                    coordenate.add("Seu produto se encontra no primeiro corredor. Ele esta localizado a 3 corredores a sua esquerda.");
+                    break;
+                case "2":
+                    if(coordenate.isEmpty())
+                        coordenate.add("Seu produto se encontra no segundo corredor. Ele esta localizado a 2 corredores a sua esquerda.");
+                    else
+                        coordenate.add("Seu produto se encontra no segundo corredor. Ele esta localizado a 1 corredores a sua direita.");
+                    break;
+                case "3":
+                    if(coordenate.isEmpty())
+                        coordenate.add("Seu produto se encontra no primeiro corredor. Ele esta localizado a 3 corredores a sua esquerda.");
+                    else
+                        coordenate.add("Seu produto se encontra no primeiro corredor. Ele esta localizado a 3 corredores a sua esquerda.");
+                    break;
+                case "4":
+                    if(coordenate.isEmpty())
+                        coordenate.add("Seu produto se encontra no primeiro corredor. Ele esta localizado a 3 corredores a sua esquerda.");
+                    else
+                        coordenate.add("Seu produto se encontra no primeiro corredor. Ele esta localizado a 3 corredores a sua esquerda.");
+                    break;
+                case "5":
+                    if(coordenate.isEmpty())
+                        coordenate.add("Seu produto se encontra no primeiro corredor. Ele esta localizado a 3 corredores a sua esquerda.");
+                    else
+                        coordenate.add("Seu produto se encontra no primeiro corredor. Ele esta localizado a 3 corredores a sua esquerda.");
+                    break;
+                case "6":
+                    if(coordenate.isEmpty())
+                        coordenate.add("Seu produto se encontra no primeiro corredor. Ele esta localizado a 3 corredores a sua esquerda.");
+                    else
+                        coordenate.add("Seu produto se encontra no primeiro corredor. Ele esta localizado a 3 corredores a sua esquerda.");
+                    break;
+                case "7":
+                    if(coordenate.isEmpty())
+                        coordenate.add("Seu produto se encontra no primeiro corredor. Ele esta localizado a 3 corredores a sua esquerda.");
+                    else
+                        coordenate.add("Seu produto se encontra no primeiro corredor. Ele esta localizado a 3 corredores a sua esquerda.");
+                    break;
+
+                    default:
+                        break;
             }
-            localAtual = Integer.parseInt(c);
         }
 
-
-        for (int i = 0; i <= 10; i++) {
-            for (int j = 0; j < 29; j++) {
-                System.out.print(multi[i][j]);
-            }
-            System.out.print("\n");
-        }
+        lstvCoo.setAdapter(new CoordinateRecycleAdapter(coordenate, getActivity()));
+        RecyclerView.LayoutManager layout = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        lstvCoo.setLayoutManager(layout);
     }
 
     private void prodPorCorre(){
