@@ -41,7 +41,6 @@ public class Preferencias {
     }
 
     public void saveListaAtual(ArrayList<String> lista){
-        //CHAVE_LISTAATUAL.addAll(lista);
         for (String a : lista) {
             CHAVE_LISTAATUAL.add(lista.toString());
         }
@@ -95,6 +94,7 @@ public class Preferencias {
         editor.remove(CHAVE_TOKEN);
         editor.remove(CHAVE_LOGIN_SENHA);
         editor.remove(CHAVE_LOGIN_EMAIL);
+        editor.remove("listaAtual");
         editor.commit();
         editor.clear();
     }

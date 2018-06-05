@@ -8,11 +8,6 @@
         <item name="colorControlHighlight">@color/colorDivider</item>
         <item name="android:windowBackground">@color/colorIcons</item>
         <item name="android:panelFullBackground">@color/colorIcons</item>
-        <!--android:panelFullBackground.
-        This can be changed in theme, which you apply to activity in manifest. Value of this attribute must be a resource,
-        for example -
-        @android:color/white , not a color value as #ffffff
-         Another solutions can be attributes android:itemBackground or android:actionBarItemBackground-->
 
      </style>
 
@@ -35,5 +30,6 @@
      <style name="AppCompat.TelaCheia" parent="Theme.AppCompat.NoActionBar">
          <item name="android:windowFullscreen">true</item>
          <item name="android:windowBackground">@color/colorPrimary</item>
+         <item name="android:textColor">@color/colorIcons</item>
      </style>
  </resources>
